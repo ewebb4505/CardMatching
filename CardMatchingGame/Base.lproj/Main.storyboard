@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="245" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-nQ-6wr">
-                                <rect key="frame" x="16" y="88" width="328" height="700"/>
+                                <rect key="frame" x="31" y="88" width="328" height="700"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Another Card Matching Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssu-by-6BE">
                                         <rect key="frame" x="0.0" y="0.0" width="328" height="25.333333333333332"/>
@@ -136,8 +136,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="aHn-nQ-6wr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="10F-1n-ZZL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aHn-nQ-6wr" secondAttribute="trailing" constant="16" id="Ij5-9B-RAy"/>
-                            <constraint firstItem="aHn-nQ-6wr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="fKs-EE-Kdf"/>
+                            <constraint firstItem="aHn-nQ-6wr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LEH-23-fma"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aaN-bP-faJ"/>

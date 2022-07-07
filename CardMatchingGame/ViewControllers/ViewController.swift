@@ -128,7 +128,7 @@ class ViewController: UIViewController {
         self.demoCardsCollectionView.delegate = self
         self.demoCardsCollectionView.dataSource = self
         
-        self.demoCardsCollectionView.contentInset = UIEdgeInsets(top: 8, left: 57, bottom: 0, right: 0)
+        self.demoCardsCollectionView.contentInset = UIEdgeInsets(top: 8, left: 20, bottom: 0, right: 20)
     }
     
     
