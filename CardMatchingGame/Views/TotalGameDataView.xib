@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Fredoka-Regular.ttf">
+            <string>Fredoka-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TotalGameDataView" customModule="CardMatchingGame" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="9JA-1W-lHy">
+                    <rect key="frame" x="8" y="8" width="43.5" height="21"/>
+                    <fontDescription key="fontDescription" name="Fredoka-Regular" family="Fredoka" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4b5-uX-hz3">
+                    <rect key="frame" x="132" y="8" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="gOo-LD-WLl"/>
+                        <constraint firstAttribute="width" constant="20" id="n5S-7A-eay"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12,345" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQl-NM-uxC">
+                    <rect key="frame" x="40" y="36" width="80.5" height="34"/>
+                    <fontDescription key="fontDescription" name="Fredoka-Regular" family="Fredoka" pointSize="28"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="RQl-NM-uxC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0Ri-L2-2Lz"/>
+                <constraint firstItem="9JA-1W-lHy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="Ata-2C-d2d"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RQl-NM-uxC" secondAttribute="bottom" constant="10" id="mdA-np-eEu"/>
+                <constraint firstAttribute="trailing" secondItem="4b5-uX-hz3" secondAttribute="trailing" constant="8" id="rzu-Ue-qUQ"/>
+                <constraint firstItem="9JA-1W-lHy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="t0m-8q-iMT"/>
+                <constraint firstItem="4b5-uX-hz3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="voj-fL-CcN"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dataImage" destination="4b5-uX-hz3" id="kUe-Rm-aHV"/>
+                <outlet property="dataLabel" destination="RQl-NM-uxC" id="xnH-lo-vii"/>
+                <outlet property="dataTypeLabel" destination="9JA-1W-lHy" id="1dt-RI-8aX"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
