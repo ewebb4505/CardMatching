@@ -366,11 +366,10 @@ extension ViewController: UICollectionViewDelegate {
         guard let game = self.gameModel else {
             fatalError("The game model wasn't set before the demo game started")
         }
-        //handle game logic here
-        
+    
         let cardCell = demoCardsCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
         let card = cardCell.getCard()
-        print(card)
+        
         if !card.isMatched {
             
             if game.isFirstSelectionEmpty() {
@@ -408,6 +407,19 @@ extension ViewController: UICollectionViewDelegate {
                     //check for the end of the game
                     if game.isGameComplete() {
                         self.isGameComplete = true
+                        //flip all cards
+                        //game.resetGame()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                            for cell in self.demoCardsCollectionView.visibleCells as! [CardCollectionViewCell] {
+                                cell.resetCard()
+                                cell.isUserInteractionEnabled = true
+                            }
+                            //reset game here
+                            game.resetGame()
+                            game.shuffleCards()
+                            self.secondCardCellSelected = nil
+                            game.resetCardSelection()
+                        }
                     }
                     
                 } else {
@@ -459,9 +471,5 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 50, height: 75)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        print(section)
-//        return UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0)
-//    }
+
 }
