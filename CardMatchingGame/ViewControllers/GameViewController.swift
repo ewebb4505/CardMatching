@@ -18,7 +18,7 @@ class GameViewController: UIViewController {
     
     //models
     let cardModel: CardModel = CardModel()
-    var gameModel: GameViewModel?
+    var gameModel: GameViewModel<CardCollectionViewCell>?
     
     var managedContext: NSManagedObjectContext!
     var bestPreviousGame: PreviousGame?
@@ -35,8 +35,6 @@ class GameViewController: UIViewController {
     //Most of this should be in the GameViewModel class
     var cards: [Card] = []
     let cellID = "cardCell"
-    var firstCardCellSelected: CardCollectionViewCell?
-    var secondCardCellSelected: CardCollectionViewCell?
     var isGameComplete: Bool = false
     var didUserCompleteGame: Bool = false
     var didUserEndGame: Bool = false
@@ -173,9 +171,6 @@ class GameViewController: UIViewController {
         self.gameCollectionView.reloadData()
         
         //reset the card cell references for the next game
-        self.firstCardCellSelected = nil
-        self.secondCardCellSelected = nil
-        
     }
     
     private func endGame() {
@@ -318,36 +313,32 @@ extension GameViewController: UICollectionViewDelegate {
             
             if game.isFirstSelectionEmpty() {
                 
-                firstCardCellSelected = cardCell
-                game.setFirstCardInSelectedPair(card)
+                game.setFirstCardInSelectedPair(cardCell)
                 //card.isFlipped = true
-                cardCell.flipCard(withDelay: false)
+                game.flipFirstCardSelected(withDelay: false)
                 //making the first selected card out of the pair disabled will prevent an
                 //event from firing off if the user taps it again. MAKE SURE TO RESET THIS AFTER SECOND SELECTION
-                cardCell.isUserInteractionEnabled = false
+                game.disableFirstCardSelection()
                 
             } else if game.isSecondSelectionEmpty() {
                 
-                game.setSecondCardInSelectedPair(card)
-                self.secondCardCellSelected = cardCell
+                game.setSecondCardInSelectedPair(cardCell)
                 
                 //TODO: card is flipped should only be set in the cardCell class since
                 //card.isFlipped = true
-                cardCell.flipCard(withDelay: false)
+                game.flipSecondCardSelected(withDelay: false)
+                game.disableSecondCardSelection()
                 
                 if game.checkSelectedPairForMatch() {
                     
                     print("You got a match!")
                     //making the second selected card out of the pair when there is a match disabled
                     //so users can't fire an event if it is tapped again.
-                    self.secondCardCellSelected?.isUserInteractionEnabled = false
+                    //game.disableSecondCardSelection()
                     game.setCardMatchPropForSelectedCards()
+                    game.setCardSelectionToMatchedState()
                     
                     game.resetCardSelection()
-                    cardCell.changeToMatchedCard()
-                    firstCardCellSelected?.changeToMatchedCard()
-                    firstCardCellSelected = nil
-                    
                     //check for the end of the game
                     if game.isGameComplete() {
                         
@@ -363,20 +354,14 @@ extension GameViewController: UICollectionViewDelegate {
                     print("That wasn't a match!")
                     
                     //enable the selected pair since they were not a match
-                    self.secondCardCellSelected?.isUserInteractionEnabled = true
-                    self.firstCardCellSelected?.isUserInteractionEnabled = true
+                    game.enableFirstCardSelection()
+                    game.enableSecondCardSelection()
                     
-                    //card.isFlipped = false
-                    cardCell.flipCard(withDelay: true)
+                    //flip both cards back since they were not matches
+                    game.flipFirstCardSelected(withDelay: true)
+                    game.flipSecondCardSelected(withDelay: true)
                     
-                    //TODO: Clean this up
-                    //firstCardCellSelected?.getCard().isFlipped = false
-                    firstCardCellSelected?.flipCard(withDelay: true)
-                    
-                    firstCardCellSelected = nil
-                    secondCardCellSelected = nil
                     game.resetCardSelection()
-                    
                 }
                 
             } else {

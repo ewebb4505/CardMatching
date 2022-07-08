@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		01093F9228609D0C00011DCC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01093F9128609D0C00011DCC /* GameViewController.swift */; };
+		01196C4E2878BCA800C97604 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01196C4D2878BCA800C97604 /* PlayingCard.swift */; };
+		01196C502878C10B00C97604 /* CardViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01196C4F2878C10B00C97604 /* CardViewable.swift */; };
 		01321EC32871E1E20039ACA7 /* PreviousGameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01321EC12871E1E20039ACA7 /* PreviousGameTableViewCell.swift */; };
 		01321EC42871E1E20039ACA7 /* PreviousGameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01321EC22871E1E20039ACA7 /* PreviousGameTableViewCell.xib */; };
 		01D6B41E286F503200CBCC0C /* Fredoka-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01D6B419286F503100CBCC0C /* Fredoka-Light.ttf */; };
@@ -50,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		01093F9128609D0C00011DCC /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		01196C4D2878BCA800C97604 /* PlayingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
+		01196C4F2878C10B00C97604 /* CardViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewable.swift; sourceTree = "<group>"; };
 		01321EC12871E1E20039ACA7 /* PreviousGameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousGameTableViewCell.swift; sourceTree = "<group>"; };
 		01321EC22871E1E20039ACA7 /* PreviousGameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviousGameTableViewCell.xib; sourceTree = "<group>"; };
 		01321ECA28725D4A0039ACA7 /* CardMatchingGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardMatchingGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +105,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01196C4C2878BC5E00C97604 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				01196C4D2878BCA800C97604 /* PlayingCard.swift */,
+				01196C4F2878C10B00C97604 /* CardViewable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		01321EC5287258520039ACA7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +208,7 @@
 		96D6487C284FA5B4004B9EB1 /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				01196C4C2878BC5E00C97604 /* Protocols */,
 				96D64881284FB890004B9EB1 /* CardModel.swift */,
 				96D64883284FB8E5004B9EB1 /* Card.swift */,
 				96D64885284FB978004B9EB1 /* CardNames.swift */,
@@ -321,9 +335,11 @@
 			files = (
 				01D95C432868986C00E76C08 /* PreviousGames.xcdatamodeld in Sources */,
 				01093F9228609D0C00011DCC /* GameViewController.swift in Sources */,
+				01196C502878C10B00C97604 /* CardViewable.swift in Sources */,
 				01DF3186286F852700DE004F /* PreviousGameHeaderView.swift in Sources */,
 				01DF318A2870885100DE004F /* BestGameHeaderView.swift in Sources */,
 				01D95C4728689A0E00E76C08 /* PreviousGame+CoreDataProperties.swift in Sources */,
+				01196C4E2878BCA800C97604 /* PlayingCard.swift in Sources */,
 				96399A6028512C1800A0CA25 /* CardCollectionViewCell.swift in Sources */,
 				01D6B42C286F5CAF00CBCC0C /* NIBWrapperView.swift in Sources */,
 				01D6B42A286F5C5E00CBCC0C /* UIView+NIB.swift in Sources */,

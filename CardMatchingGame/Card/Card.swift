@@ -7,12 +7,15 @@
 
 import Foundation
 
-class Card {
-    var imageName: CardName
+class Card: PlayingCard {
+    
+    typealias Face = CardFace
+    
+    var faceValue: Face
     var isFlipped = false
     var isMatched = false
     
-    init(imageName: CardName){
-        self.imageName = imageName
+    init(face: Face){
+        self.faceValue = face
     }
 }

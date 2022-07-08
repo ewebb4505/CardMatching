@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CardName: CaseIterable {
+public enum CardFace: CaseIterable {
     case Bucket,
          ThumbsUp,
          Bike,

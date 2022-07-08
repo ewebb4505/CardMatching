@@ -8,9 +8,9 @@
 import Foundation
 
 
-class GameViewModel {
+class GameViewModel<CardView: CardViewable> {
     
-    private var selectedPair: (first: Card?, second: Card?)
+    private var selectedPair: (first: CardView?, second: CardView?)
     private var totalTime: Double?
     //private var totalTimeFirstCardCanBeOpen: Double = 5
     private var numberOfMatches: Int = 0
@@ -24,7 +24,7 @@ class GameViewModel {
         self.cards = cards
     }
     
-    public func setFirstCardInSelectedPair(_ card: Card){
+    public func setFirstCardInSelectedPair(_ card: CardView){
         if selectedPair.first != nil {
             fatalError("there is already a first selection, setFirstCardInSelectedPair should not have been called")
         } else {
@@ -32,7 +32,7 @@ class GameViewModel {
         }
     }
     
-    public func setSecondCardInSelectedPair(_ card: Card){
+    public func setSecondCardInSelectedPair(_ card: CardView){
         if selectedPair.second != nil {
             fatalError("there is already a second selection, setSecondCardInSelectedPair should not have been called")
         } else {
@@ -50,7 +50,15 @@ class GameViewModel {
             return false
         }
         
-        if first.imageName.getImageNameFromCardName() == second.imageName.getImageNameFromCardName(){
+        guard let firstCard = first.card else {
+            fatalError("Trying to check selected pair for a match with the first selected card being nil.")
+        }
+        
+        guard let secondCard = second.card else {
+            fatalError("Trying to check selected pair for a match with the second selected card being nil.")
+        }
+        
+        if  firstCard.faceValue.getImageNameFromCardName() == secondCard.faceValue.getImageNameFromCardName(){
             return true
         } else {
             return false
@@ -66,17 +74,24 @@ class GameViewModel {
     }
     
     public func setCardMatchPropForSelectedCards() {
-        if let first = selectedPair.first {
-            first.isMatched = true
-        } else {
-            fatalError("trying to say that the first selection nil card is matched? WRONG")
+        guard let first = selectedPair.first else {
+            fatalError("Trying to set cards to matched but first selection is not set")
         }
         
-        if let second = selectedPair.second {
-            second.isMatched = true
-        } else {
-            fatalError("trying to say that the second selection nil card is matched? WRONG")
+        guard let second = selectedPair.second else {
+            fatalError("Trying to set cards to matched but second selection is not set")
         }
+        
+        guard let firstCard = first.card else {
+            fatalError("Trying to set first card selection to matched with it being nil.")
+        }
+        
+        guard let secondCard = second.card else {
+            fatalError("Trying to set second card selection to matched with it being nil.")
+        }
+        
+        firstCard.isMatched = true
+        secondCard.isMatched = true
     }
     
     public func resetCardSelection() {
@@ -121,6 +136,64 @@ class GameViewModel {
         }
     }
     
+    public func flipFirstCardSelected(withDelay: Bool) {
+        guard let first = selectedPair.first else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        first.flipCard(withDelay: withDelay)
+    }
+    
+    public func flipSecondCardSelected(withDelay: Bool) {
+        guard let second = selectedPair.second else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        second.flipCard(withDelay: withDelay)
+    }
+    
+    public func disableFirstCardSelection() {
+        guard let first = selectedPair.first else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        first.disableCard()
+    }
+    
+    public func disableSecondCardSelection() {
+        guard let second = selectedPair.second else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        second.disableCard()
+    }
+    
+    public func enableFirstCardSelection() {
+        guard let first = selectedPair.first else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        first.enableCard()
+    }
+    
+    public func enableSecondCardSelection() {
+        guard let second = selectedPair.second else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        second.enableCard()
+    }
+    
+    public func setCardSelectionToMatchedState() {
+        guard let first = selectedPair.first, let second = selectedPair.second else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        guard let firstCard = first.card, let secondCard = second.card else {
+            fatalError("Trying to set cards to matched but first selection is not set")
+        }
+        
+        if firstCard.isMatched && secondCard.isMatched {
+            first.setMatchedState()
+            second.setMatchedState()
+        } else {
+            print("Why were both cards not in matched state before needing to set the cards matched view state?")
+        }
+    }
+    
     public func shuffleCards() {
         self.cards.shuffle()
     }
@@ -128,6 +201,7 @@ class GameViewModel {
     public func setUserDidEndGame(_ bool: Bool) {
         self.didUserCompleteGame = bool
     }
+    
     public func getUserDidEndGame() -> Bool {
         return self.didUserEndGame
     }

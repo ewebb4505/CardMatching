@@ -31,11 +31,9 @@ class ViewController: UIViewController {
     
     //variables need for the game simulation
     let cardModel: CardModel = CardModel()
-    var gameModel: GameViewModel?
+    var gameModel: GameViewModel<CardCollectionViewCell>?
     var cards: [Card] = []
     let cellID = "cardCell"
-    var firstCardCellSelected: CardCollectionViewCell?
-    var secondCardCellSelected: CardCollectionViewCell?
     var isGameComplete: Bool = false
     var guessValue: Int = 0
     
@@ -374,8 +372,7 @@ extension ViewController: UICollectionViewDelegate {
             
             if game.isFirstSelectionEmpty() {
                 
-                firstCardCellSelected = cardCell
-                game.setFirstCardInSelectedPair(card)
+                game.setFirstCardInSelectedPair(cardCell)
                 //card.isFlipped = true
                 cardCell.flipCard(withDelay: false)
                 //making the first selected card out of the pair disabled will prevent an
@@ -384,8 +381,7 @@ extension ViewController: UICollectionViewDelegate {
                 
             } else if game.isSecondSelectionEmpty() {
                 
-                game.setSecondCardInSelectedPair(card)
-                self.secondCardCellSelected = cardCell
+                game.setSecondCardInSelectedPair(cardCell)
                 
                 //TODO: card is flipped should only be set in the cardCell class since
                 //card.isFlipped = true
@@ -396,13 +392,12 @@ extension ViewController: UICollectionViewDelegate {
                     print("You got a match!")
                     //making the second selected card out of the pair when there is a match disabled
                     //so users can't fire an event if it is tapped again.
-                    self.secondCardCellSelected?.isUserInteractionEnabled = false
+//                    self.secondCardCellSelected?.isUserInteractionEnabled = false
+                    game.disableSecondCardSelection()
                     game.setCardMatchPropForSelectedCards()
                     
                     game.resetCardSelection()
-                    cardCell.changeToMatchedCard()
-                    firstCardCellSelected?.changeToMatchedCard()
-                    firstCardCellSelected = nil
+                    game.setCardSelectionToMatchedState()
                     
                     //check for the end of the game
                     if game.isGameComplete() {
@@ -417,30 +412,19 @@ extension ViewController: UICollectionViewDelegate {
                             //reset game here
                             game.resetGame()
                             game.shuffleCards()
-                            self.secondCardCellSelected = nil
+ 
                             game.resetCardSelection()
                         }
                     }
                     
                 } else {
-                    
                     print("That wasn't a match!")
-                    
                     //enable the selected pair since they were not a match
-                    self.secondCardCellSelected?.isUserInteractionEnabled = true
-                    self.firstCardCellSelected?.isUserInteractionEnabled = true
-                    
-                    //card.isFlipped = false
-                    cardCell.flipCard(withDelay: true)
-                    
-                    //TODO: Clean this up
-                    //firstCardCellSelected?.getCard().isFlipped = false
-                    firstCardCellSelected?.flipCard(withDelay: true)
-                    
-                    firstCardCellSelected = nil
-                    secondCardCellSelected = nil
+                    game.enableSecondCardSelection()
+                    game.enableFirstCardSelection()
+                    game.flipSecondCardSelected(withDelay: true)
+                    game.flipFirstCardSelected(withDelay: true)
                     game.resetCardSelection()
-                    
                 }
                 
             } else {
