@@ -31,9 +31,9 @@ class GameViewController: UIViewController {
     var resetTimerStartingCount: Int = 3
     var resetTimerCount: Int = 0
     var resetTimerIsCounting: Bool = false
-    
+     
     //Most of this should be in the GameViewModel class
-    var cards: [Card] = []
+    //var cards: [Card] = []
     let cellID = "cardCell"
     var isGameComplete: Bool = false
     var didUserCompleteGame: Bool = false

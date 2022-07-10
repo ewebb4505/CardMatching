@@ -374,10 +374,12 @@ extension ViewController: UICollectionViewDelegate {
                 
                 game.setFirstCardInSelectedPair(cardCell)
                 //card.isFlipped = true
-                cardCell.flipCard(withDelay: false)
+                //cardCell.flipCard(withDelay: false)
+                game.flipFirstCardSelected(withDelay: false)
                 //making the first selected card out of the pair disabled will prevent an
                 //event from firing off if the user taps it again. MAKE SURE TO RESET THIS AFTER SECOND SELECTION
-                cardCell.isUserInteractionEnabled = false
+//                cardCell.isUserInteractionEnabled = false
+                game.disableFirstCardSelection()
                 
             } else if game.isSecondSelectionEmpty() {
                 
@@ -385,7 +387,7 @@ extension ViewController: UICollectionViewDelegate {
                 
                 //TODO: card is flipped should only be set in the cardCell class since
                 //card.isFlipped = true
-                cardCell.flipCard(withDelay: false)
+                game.flipSecondCardSelected(withDelay: false)
                 
                 if game.checkSelectedPairForMatch() {
                     
@@ -395,9 +397,9 @@ extension ViewController: UICollectionViewDelegate {
 //                    self.secondCardCellSelected?.isUserInteractionEnabled = false
                     game.disableSecondCardSelection()
                     game.setCardMatchPropForSelectedCards()
-                    
-                    game.resetCardSelection()
                     game.setCardSelectionToMatchedState()
+                    game.resetCardSelection()
+                    
                     
                     //check for the end of the game
                     if game.isGameComplete() {
