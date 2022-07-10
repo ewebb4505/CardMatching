@@ -11,7 +11,6 @@ import CoreData
 class ViewController: UIViewController {
 
     //views
-    var timerLabel: UILabel!
     var cardCollectionView: UICollectionView!
     @IBOutlet weak var demoCardsCollectionView: UICollectionView!
     @IBOutlet weak var startButton: UIButton!
@@ -32,18 +31,12 @@ class ViewController: UIViewController {
     //variables need for the game simulation
     let cardModel: CardModel = CardModel()
     var gameModel: GameViewModel<CardCollectionViewCell>?
-    var cards: [Card] = []
     let cellID = "cardCell"
-    var isGameComplete: Bool = false
-    var guessValue: Int = 0
     
     //constants for setting up previous games table
-    let lastThreePreviousGamesSectionHeader = "Last 5 Completed Games"
-    let bestPreviousGameSectionHeader = "Your Best Game!"
     let lastThreePreviousGamesSectionNumber: Int = 0
     let bestPreviousGameSectionNumber: Int = 1
     let previousGamesTableSectionRowQuantity: Int = 3
-    let bestPreviousGameNum: Int = 1
     let numOfSections: Int = 2
     
     //computed UILabel for empty table
@@ -95,8 +88,8 @@ class ViewController: UIViewController {
             return $0.date! > $1.date!
         }
         
-        self.cards = cardModel.getCardsForDemo()
-        self.gameModel = GameViewModel(cards: self.cards)
+      
+        self.gameModel = GameViewModel(cards: cardModel.getCardsForDemo())
         
         getBestPreviousGame()
         setUpPreviousGameDataTable()
@@ -277,27 +270,15 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if prevGames.isEmpty {
-            return 0
-        } else {
-            return numOfSections
-        }
+       return prevGames.isEmpty ? 0 : numOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //if section is last 5, get the last 5 games from the data model here
         if section == lastThreePreviousGamesSectionNumber {
-            if prevGames.count < previousGamesTableSectionRowQuantity {
-                return prevGames.count
-            } else {
-                return previousGamesTableSectionRowQuantity
-            }
+            return prevGames.count < previousGamesTableSectionRowQuantity ? prevGames.count : previousGamesTableSectionRowQuantity
         } else {
-            if prevGames.isEmpty {
-                return 0
-            } else {
-                return 1
-            }
+            return prevGames.isEmpty ? 0 : 1
         }
     }
     
@@ -403,7 +384,7 @@ extension ViewController: UICollectionViewDelegate {
                     
                     //check for the end of the game
                     if game.isGameComplete() {
-                        self.isGameComplete = true
+                        
                         //flip all cards
                         //game.resetGame()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
@@ -448,7 +429,11 @@ extension ViewController: UICollectionViewDataSource {
         let cell = demoCardsCollectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CardCollectionViewCell
         //this is where we configure the card!
         //first, set the card info (should the cardCollectionViewCell have a reference to a Card object?)
-        cell.setCard(card: self.cards[indexPath.item])
+        guard let game = self.gameModel else {
+            fatalError("The game model wasn't set before the demo game started")
+        }
+        
+        cell.setCard(card: game.getCards()[indexPath.item])
         
         return cell
     }
